@@ -26,6 +26,10 @@ ActiveRecord::Schema.define(version: 20160906202422) do
     t.string   "root_domain"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["author"], name: "index_news_scrapers_on_author", using: :btree
+    t.index ["datetime"], name: "index_news_scrapers_on_datetime", using: :btree
+    t.index ["root_domain"], name: "index_news_scrapers_on_root_domain", using: :btree
+    t.index ["title"], name: "index_news_scrapers_on_title", using: :btree
   end
 
 end
