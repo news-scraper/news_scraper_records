@@ -5,7 +5,6 @@ namespace :db do
   db_config       = YAML::load(File.open('config/database.yml'))
   db_config_admin = db_config.merge({'database' => 'postgres', 'schema_search_path' => 'public'})
   ActiveRecord::Base.logger = Logger.new(File.open('logs/db.log', 'a'))
-  ActiveRecord::Migration.verbose = true
 
   desc "Create the database"
   task :create do
@@ -17,9 +16,17 @@ namespace :db do
   desc "Migrate the database"
   task :migrate do
     ActiveRecord::Base.establish_connection(db_config)
+    ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate("db/migrate/")
     Rake::Task["db:schema"].invoke
     puts "Database migrated."
+  end
+
+  desc 'Rolls the schema back to the previous version (specify steps w/ STEP=n).'
+  task :rollback do
+    step = ENV['STEP'] ? ENV['STEP'].to_i : 1
+    ActiveRecord::Base.establish_connection(db_config)
+    ActiveRecord::Migrator.rollback("db/migrate/", step)
   end
 
   desc "Drop the database"
@@ -54,7 +61,7 @@ namespace :g do
 
     File.open(path, 'w') do |file|
       file.write <<-EOF
-class #{migration_class} < ActiveRecord::Migration
+class #{migration_class} < ActiveRecord::Migration[5.0]
   def self.up
   end
   def self.down
