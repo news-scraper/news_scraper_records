@@ -1,0 +1,21 @@
+name: news-scraper-records
+
+up:
+  - ruby: 2.3.1
+  - bundler
+  - homebrew:
+    - postgresql
+  - custom:
+      name: Start Postgres
+      met?: test -f "/usr/local/var/postgres/postmaster.pid"
+      meet: |
+        pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start &
+        sleep 1
+  - database:
+      vendor: postgres
+      bootstrap: bundle exec rake db:create
+      migrate: bundle exec rake db:migrate
+      host: "" 
+      user: ""
+      password: ""
+      database: new_scrapers_records
