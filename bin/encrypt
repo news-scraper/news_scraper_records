@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+Dir['config/secrets/*.ejson'].each do |ejson_file|
+  `ejson encrypt #{ejson_file}`
+end

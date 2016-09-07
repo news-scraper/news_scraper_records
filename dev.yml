@@ -11,6 +11,14 @@ up:
       meet: |
         pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start &
         sleep 1
+  - custom:
+      name: ejson setup
+      met?: test -d /opt/ejson/keys
+      meet: mkdir -p /opt/ejson/keys
+  - custom:
+      name: ejson keys
+      met?: test -f /opt/ejson/keys/92aca905807945b265474a0c05565bce907fcff444e8bb120bf5ae40ce87fa69
+      meet: echo "You need to get the private key in /opt/ejson/keys/92aca905807945b265474a0c05565bce907fcff444e8bb120bf5ae40ce87fa69"
   - database:
       vendor: postgres
       bootstrap: bundle exec rake db:create
@@ -19,3 +27,6 @@ up:
       user: ""
       password: ""
       database: new_scrapers_records
+
+commands:
+  encrypt: bin/encrypt

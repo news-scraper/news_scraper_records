@@ -1,8 +1,14 @@
 require 'active_record'
 require 'yaml'
+require 'json'
 
 namespace :db do
-  db_config       = YAML::load(File.open('config/database.yml'))
+  env = ENV.fetch('ENV', 'development')
+  db_config       = YAML::load(File.open('config/database.yml'))[env]
+  if File.exist?("config/secrets/#{env}.ejson")
+    decrypted_text = `ejson decrypt config/secrets/#{env}.ejson`
+    db_config.merge!(JSON.parse(decrypted_text))
+  end
   db_config_admin = db_config.merge({'database' => 'postgres', 'schema_search_path' => 'public'})
   ActiveRecord::Base.logger = Logger.new(File.open('logs/db.log', 'a'))
 
@@ -48,7 +54,6 @@ namespace :db do
       ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
     end
   end
-
 end
 
 namespace :g do
@@ -71,6 +76,6 @@ end
     end
 
     puts "Migration #{path} created"
-    abort # needed stop other tasks
+    abort # needed to stop other tasks
   end
 end
