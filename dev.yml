@@ -30,3 +30,4 @@ up:
 
 commands:
   encrypt: bin/encrypt
+  prod_sync: ENV=production bundle exec rake db:migrate
