@@ -21,11 +21,27 @@ namespace :db do
 
   desc "Migrate the database"
   task :migrate do
+    Rake::Task["db:production_check"].invoke if env == 'production'
+
     ActiveRecord::Base.establish_connection(db_config)
     ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate("db/migrate/")
     Rake::Task["db:schema"].invoke
     puts "Database migrated."
+  end
+
+  desc 'Makes sure master is up to date before running production tasks'
+  task :production_check do
+    return unless env == 'production'
+
+    status = `git status -uno`.strip
+    branch = `git rev-parse --abbrev-ref HEAD`.strip
+
+    raise "[PRODUCTION] You can only run migrations for production on master" and abort unless branch == 'master'
+    unless status.include?('Your branch is up-to-date') && !status.include?('Changes not staged for commit')
+      raise "[PRODUCTION] Please push your changes to master before running migrations"
+      abort
+    end
   end
 
   desc 'Rolls the schema back to the previous version (specify steps w/ STEP=n).'
