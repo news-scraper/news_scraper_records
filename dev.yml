@@ -18,7 +18,7 @@ up:
   - custom:
       name: ejson keys
       met?: test -f /opt/ejson/keys/92aca905807945b265474a0c05565bce907fcff444e8bb120bf5ae40ce87fa69
-      meet: echo "You need to get the private key in /opt/ejson/keys/92aca905807945b265474a0c05565bce907fcff444e8bb120bf5ae40ce87fa69"
+      meet: echo "You need to set the private key in /opt/ejson/keys/92aca905807945b265474a0c05565bce907fcff444e8bb120bf5ae40ce87fa69"
   - database:
       vendor: postgres
       bootstrap: bundle exec rake db:create
