@@ -4,17 +4,17 @@ require 'json'
 
 namespace :db do
   env = ENV.fetch('ENV', 'development')
-  db_config       = YAML::load(File.open('config/database.yml'))[env]
+  db_config = YAML::load(File.open('config/database.yml'))[env]
   if File.exist?("config/secrets/#{env}.ejson")
     decrypted_text = `ejson decrypt config/secrets/#{env}.ejson`
     db_config.merge!(JSON.parse(decrypted_text))
   end
-  db_config_admin = db_config.merge({'database' => 'postgres', 'schema_search_path' => 'public'})
+  db_config.merge!({'database' => 'postgres', 'schema_search_path' => 'public'})
   ActiveRecord::Base.logger = Logger.new(File.open('logs/db.log', 'a'))
 
   desc "Create the database"
   task :create do
-    ActiveRecord::Base.establish_connection(db_config_admin)
+    ActiveRecord::Base.establish_connection(db_config)
     ActiveRecord::Base.connection.create_database(db_config["database"])
     puts "Database created."
   end
@@ -53,7 +53,7 @@ namespace :db do
 
   desc "Drop the database"
   task :drop do
-    ActiveRecord::Base.establish_connection(db_config_admin)
+    ActiveRecord::Base.establish_connection(db_config)
     ActiveRecord::Base.connection.drop_database(db_config["database"])
     puts "Database deleted."
   end
