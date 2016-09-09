@@ -19,14 +19,14 @@ Hooking an ActiveRecord Model up
 ---
 
 Model:
-```
+```ruby
 class NewsScraper < ApplicationRecord
   establish_connection :news_scraper
 end
 ```
 
 Secrets Initializer (`config/initializers/news_scraper.production.ejson`)
-```
+```ruby
 file_path = Rails.root.join('config', 'secrets', "news_scraper.#{Rails.env}.ejson")
 config = ActiveRecord::Base.configurations
 
