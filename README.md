@@ -51,7 +51,7 @@ file_path = Rails.root.join(
   'news_scraper_records',
   'config',
   'secrets',
-  "news_scraper.production.ejson"
+  "#{Rails.env}.ejson" # Change this to 'production.ejson` to test the connection
 )
 ```
 3. Add a new db/migrate path:
