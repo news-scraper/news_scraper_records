@@ -18,19 +18,12 @@ Ejson
 Hooking an ActiveRecord Model up
 ---
 
-Model:
-```ruby
-class NewsScraper < ApplicationRecord
-  establish_connection :news_scraper
-end
-```
-
 Secrets Initializer (`config/initializers/news_scraper.production.ejson`)
 ```ruby
 file_path = Rails.root.join('config', 'secrets', "news_scraper.#{Rails.env}.ejson")
 config = ActiveRecord::Base.configurations
 
-config['news_scraper'] = if File.exist?(file_path)
+config['news_scraper_records'] = if File.exist?(file_path)
   JSON.parse(`ejson decrypt #{file_path}`).freeze
 else
   config[Rails.env]
@@ -38,6 +31,13 @@ end
 ```
 
 Make sure to add `gem 'ejson'` to your Gemfile and have a copy of the ejson file in config/secrets named `news_scraper.env.ejson`
+
+Model:
+```ruby
+class NewsArticle < ApplicationRecord
+  establish_connection :news_scraper_records
+end
+```
 
 To make things easier
 ---
