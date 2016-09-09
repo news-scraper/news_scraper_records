@@ -54,7 +54,7 @@ file_path = Rails.root.join(
   "#{Rails.env}.ejson" # Change this to 'production.ejson` to test the connection
 )
 ```
-3. Add a new db/migrate path:
+3. Add a new db/migrate path to `application.rb`:
 ```ruby
   config.paths['db/migrate'] << Rails.root.join(
     'vendor',
