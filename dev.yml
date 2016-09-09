@@ -23,10 +23,10 @@ up:
       vendor: postgres
       bootstrap: bundle exec rake db:create
       migrate: bundle exec rake db:migrate
-      host: "" 
+      host: ""
       user: ""
       password: ""
-      database: new_scrapers_records
+      database: news_scraper_records
 
 commands:
   encrypt: bin/encrypt
