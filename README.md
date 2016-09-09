@@ -1,6 +1,6 @@
-# News Scrapers Records
+# News Scraper Records
 
-ActiveRecord maintenance for news scrapers records
+ActiveRecord maintenance for news scraper records
 
 1. Make sure you have `dev` installed => `eval "$(curl -sS https://dev.shopify.io/up)"`
 2. Run `dev up`

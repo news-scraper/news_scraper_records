@@ -3,11 +3,11 @@ development:
   host: localhost
   adapter: postgresql
   encoding: utf-8
-  database: new_scrapers_records
+  database: news_scraper_records
 production:
   host: defined_by_production_ejson
   username: defined_by_production_ejson
   password: defined_by_production_ejson
   adapter: postgresql
   encoding: utf-8
-  database: new_scrapers_records
+  database: news_scraper_records
