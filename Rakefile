@@ -34,14 +34,11 @@ namespace :db do
   task :production_check do
     return unless env == 'production'
 
-    status = `git status -uno`.strip
+    changed_files = `git status --porcelain`.strip
     branch = `git rev-parse --abbrev-ref HEAD`.strip
 
     raise "[PRODUCTION] You can only run migrations for production on master" and abort unless branch == 'master'
-    unless status.include?('Your branch is up-to-date') && !status.include?('Changes not staged for commit')
-      raise "[PRODUCTION] Please push your changes to master before running migrations"
-      abort
-    end
+    raise "[PRODUCTION] Please push your changes to master before running migrations" and abort unless changed_files.empty?
   end
 
   desc 'Rolls the schema back to the previous version (specify steps w/ STEP=n).'
