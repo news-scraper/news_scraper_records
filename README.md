@@ -38,3 +38,27 @@ end
 ```
 
 Make sure to add `gem 'ejson'` to your Gemfile and have a copy of the ejson file in config/secrets named `news_scraper.env.ejson`
+
+To make things easier
+---
+Setting up a submodule under `vendor`, followed by a symlink of the db migrations and ejson. Follow these commands
+1. `git submodule add git@github.com:jules2689/news_scraper_records.git vendor`
+2. In the initializer, update the file_path accordingly:
+```ruby
+file_path = Rails.root.join(
+  'vendor',
+  'news_scraper_records',
+  'config',
+  'secrets',
+  "news_scraper.production.ejson"
+)
+```
+3. Add a new db/migrate path:
+```ruby
+  config.paths['db/migrate'] << Rails.root.join(
+    'vendor',
+    'news_scraper_records',
+    'db',
+    'migrate'
+  )
+```
