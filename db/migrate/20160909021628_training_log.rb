@@ -1,8 +1,8 @@
 class TrainingLog < ActiveRecord::Migration[5.0]
   def up
     create_table :training_logs do |t|
-      t.string :root_domain, unique: true, index: true
-      t.string :uri, index: true
+      t.string :root_domain, index: true
+      t.string :uri,  unique: true, index: true
       t.string :trained_status, default: 'untrained', index: true
       t.timestamps
     end
