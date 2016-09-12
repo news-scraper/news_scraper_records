@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20160909021628) do
     t.index ["root_domain", "trained_status"], name: "index_training_logs_on_root_domain_and_trained_status", using: :btree
     t.index ["root_domain"], name: "index_training_logs_on_root_domain", using: :btree
     t.index ["trained_status"], name: "index_training_logs_on_trained_status", using: :btree
-    t.index ["uri"], name: "index_training_logs_on_uri", using: :btree
+    t.index ["uri"], name: "index_training_logs_on_uri", unique: true, using: :btree
   end
 
 end
