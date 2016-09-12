@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909003428) do
+ActiveRecord::Schema.define(version: 20160909021628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,18 @@ ActiveRecord::Schema.define(version: 20160909003428) do
     t.index ["root_domain"], name: "index_news_articles_on_root_domain", using: :btree
     t.index ["title"], name: "index_news_articles_on_title", using: :btree
     t.index ["uri"], name: "index_news_articles_on_uri", unique: true, using: :btree
+  end
+
+  create_table "training_logs", force: :cascade do |t|
+    t.string   "root_domain"
+    t.string   "uri"
+    t.string   "trained_status", default: "untrained"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.index ["root_domain", "trained_status"], name: "index_training_logs_on_root_domain_and_trained_status", using: :btree
+    t.index ["root_domain"], name: "index_training_logs_on_root_domain", using: :btree
+    t.index ["trained_status"], name: "index_training_logs_on_trained_status", using: :btree
+    t.index ["uri"], name: "index_training_logs_on_uri", unique: true, using: :btree
   end
 
 end
