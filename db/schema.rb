@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 20160909021628) do
 
   create_table "training_logs", force: :cascade do |t|
     t.string   "root_domain"
-    t.text     "uris",           default: [],              array: true
-    t.integer  "trained_status", default: 0
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.text     "uris",           default: [],                       array: true
+    t.string   "trained_status", default: "untrained"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.index ["root_domain", "trained_status"], name: "index_training_logs_on_root_domain_and_trained_status", using: :btree
     t.index ["root_domain"], name: "index_training_logs_on_root_domain", using: :btree
     t.index ["trained_status"], name: "index_training_logs_on_trained_status", using: :btree
