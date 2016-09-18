@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+#
+require_relative '../lib/trainer'
+
+Trainer.train(domain: ENV['DOMAIN'], count: ENV.fetch('NUM', 1))
