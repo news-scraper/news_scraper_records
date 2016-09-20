@@ -1,6 +1,6 @@
 # News Scraper Records
 
-ActiveRecord maintenance for news scraper records
+Experimental ActiveRecord maintenance for news scraper records. Superceded by the [API App](https://github.com/news-scraper/api)
 
 1. Make sure you have `dev` installed => `eval "$(curl -sS https://dev.shopify.io/up)"`
 2. Run `dev up`
