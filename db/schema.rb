@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909021628) do
+ActiveRecord::Schema.define(version: 20160917235917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "domain_entries", force: :cascade do |t|
+    t.string   "key"
+    t.string   "method"
+    t.string   "pattern"
+    t.integer  "domain_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.string   "root_domain", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "news_articles", force: :cascade do |t|
     t.string   "author"
@@ -46,4 +61,5 @@ ActiveRecord::Schema.define(version: 20160909021628) do
     t.index ["uri"], name: "index_training_logs_on_uri", unique: true, using: :btree
   end
 
+  add_foreign_key "domain_entries", "domains"
 end
