@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909021628) do
+ActiveRecord::Schema.define(version: 20160918145238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20160909021628) do
     t.string   "section"
     t.datetime "datetime"
     t.string   "title"
-    t.string   "root_domain"
+    t.string   "root_domain", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "uri"
+    t.string   "uri",         null: false
     t.index ["author"], name: "index_news_articles_on_author", using: :btree
     t.index ["datetime"], name: "index_news_articles_on_datetime", using: :btree
     t.index ["root_domain"], name: "index_news_articles_on_root_domain", using: :btree
@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20160909021628) do
   end
 
   create_table "training_logs", force: :cascade do |t|
-    t.string   "root_domain"
-    t.string   "uri"
-    t.string   "trained_status", default: "untrained"
+    t.string   "root_domain",                          null: false
+    t.string   "uri",                                  null: false
+    t.string   "trained_status", default: "untrained", null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.index ["root_domain", "trained_status"], name: "index_training_logs_on_root_domain_and_trained_status", using: :btree

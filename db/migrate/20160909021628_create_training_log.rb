@@ -1,4 +1,4 @@
-class TrainingLog < ActiveRecord::Migration[5.0]
+class CreateTrainingLog < ActiveRecord::Migration[5.0]
   def up
     create_table :training_logs do |t|
       t.string :root_domain, index: true
@@ -9,7 +9,7 @@ class TrainingLog < ActiveRecord::Migration[5.0]
 
     add_index :training_logs, [:root_domain, :trained_status]
     add_index :training_logs, :uri, unique: true
-  end 
+  end
 
   def down
     drop_table :training_logs

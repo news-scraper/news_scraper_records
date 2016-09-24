@@ -1,10 +1,16 @@
+require 'rake/testtask'
 require 'active_record'
 require 'yaml'
 require 'json'
 
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.pattern = 'test/**/*_test.rb'
+end
+
 namespace :db do
   env = ENV.fetch('ENV', 'development')
-  db_config       = YAML::load(File.open('config/database.yml'))[env]
+  db_config = YAML::load(File.open('config/database.yml'))[env]
   if File.exist?("config/secrets/#{env}.ejson")
     decrypted_text = `ejson decrypt config/secrets/#{env}.ejson`
     db_config.merge!(JSON.parse(decrypted_text))

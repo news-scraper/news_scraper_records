@@ -1,0 +1,6 @@
+require 'minitest/autorun'
+require 'minitest/pride'
+require 'mocha/mini_test'
+require 'active_record'
+require_relative '../lib/models/training_log'
+require_relative '../lib/trainer'
